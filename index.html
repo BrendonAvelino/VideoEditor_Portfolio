@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brendon Harrisson - Portfólio</title>
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎬</text></svg>">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&family=Rajdhani:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="background-particles"></div>
+    <div class="background-texture"></div>
+    <div class="background-waves"></div>
+
+    <div class="cursor"></div>
+    <div class="scroll-line left-line"></div>
+    <div class="scroll-line right-line"></div>
+
+    <nav class="main-nav">
+        <ul>
+            <li><a href="#home" data-key="nav_home">Início</a></li>
+            <li><a href="#about" data-key="nav_about">Sobre</a></li>
+            <li><a href="#services" data-key="nav_services">Serviços</a></li>
+            <li><a href="#gallery" data-key="nav_gallery">Galeria</a></li>
+            <li><a href="#testimonials" data-key="nav_testimonials">Depoimentos</a></li>
+            <li><a href="#faq" data-key="nav_faq">FAQ</a></li>
+            <li><a href="#contact" data-key="nav_contact">Contato</a></li>
+        </ul>
+        <button id="lang-toggle" class="lang-button">EN</button>
+    </nav>
+
+    <main>
+        <section id="home" class="hero-section">
+            <div class="hero-content">
+                <h1 class="name" data-text="Brendon Harrisson">Brendon Harrisson</h1>
+                <p class="title" data-key="hero_title">Video Editor / Motion Designer</p>
+            </div>
+        </section>
+
+        <section id="about" class="content-section">
+            <h2 class="section-title" data-key="about_title">SOBRE MIM</h2>
+            <div class="underline"></div>
+            <p class="about-text" data-key="about_text">
+                Sou editor de vídeo, motion designer e desenvolvedor front-end. Minha paixão é unir a arte da edição com a precisão da tecnologia para criar experiências visuais únicas. Estou em constante evolução, sempre buscando o próximo nível em cada projeto, com foco total na qualidade e na entrega de resultados que impressionam.
+            </p>
+        </section>
+
+        <section id="services" class="content-section">
+            <h2 class="section-title" data-key="services_title">SERVIÇOS</h2>
+            <div class="underline"></div>
+            <div class="services-grid">
+                <div class="service-card-container">
+                    <div class="service-card">
+                        <div class="card-face card-front">
+                            <div class="service-icon">🎬</div>
+                            <h4 data-key="service1_title">Vídeos para YouTube</h4>
+                            <p data-key="service1_desc">Edição completa para canais, incluindo cortes, trilha sonora, legendas e correção de cor para engajar sua audiência.</p>
+                        </div>
+                        <div class="card-face card-back">
+                            <video src="https://assets.mixkit.co/videos/5381/5381-720.mp4" autoplay loop muted playsinline></video>
+                        </div>
+                    </div>
+                </div>
+                <div class="service-card-container">
+                    <div class="service-card">
+                        <div class="card-face card-front">
+                            <div class="service-icon">📱</div>
+                            <h4 data-key="service2_title">Vídeos para Redes Sociais</h4>
+                            <p data-key="service2_desc">Edição de vídeos curtos e dinâmicos para Reels, TikTok e Stories, otimizados para o consumo rápido e viral.</p>
+                        </div>
+                        <div class="card-face card-back">
+                            <video src="https://assets.mixkit.co/videos/42286/42286-720.mp4" autoplay loop muted playsinline></video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="process" class="content-section">
+            <h2 class="section-title" data-key="process_title">MEU PROCESSO</h2>
+            <div class="underline"></div>
+            <div class="process-flow">
+                <div class="process-step">
+                    <div class="step-number">01</div>
+                    <h4 data-key="process1_title">Briefing e Estratégia</h4>
+                    <p data-key="process1_desc">Entendemos juntos suas metas e a visão para o projeto.</p>
+                </div>
+                <div class="process-arrow">→</div>
+                <div class="process-step">
+                    <div class="step-number">02</div>
+                    <h4 data-key="process2_title">Criação e Edição</h4>
+                    <p data-key="process2_desc">É aqui que a mágica acontece, transformando o material bruto em uma história.</p>
+                </div>
+                <div class="process-arrow">→</div>
+                <div class="process-step">
+                    <div class="step-number">03</div>
+                    <h4 data-key="process3_title">Revisão e Entrega</h4>
+                    <p data-key="process3_desc">Você revisa o material e, após os ajustes finais, o projeto é entregue em alta qualidade.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery" class="content-section">
+            <h2 class="section-title" data-key="gallery_title">GALERIA</h2>
+            <div class="underline"></div>
+            <div class="gallery-grid">
+                <!-- Itens com vídeo (troque o ID ) -->
+                <div class="gallery-item" data-video-id="MToMx6RCW-M"><div class="play-icon"></div></div>
+                <div class="gallery-item" data-video-id=""><div class="play-icon"></div></div>
+                <div class="gallery-item" data-video-id=""><div class="play-icon"></div></div>
+                <div class="gallery-item" data-video-id=""><div class="play-icon"></div></div>
+                <div class="gallery-item" data-video-id=""><div class="play-icon"></div></div>
+                <div class="gallery-item" data-video-id=""><div class="play-icon"></div></div>
+            </div>
+        </section>
+
+        <section id="testimonials" class="content-section">
+            <h2 class="section-title" data-key="testimonials_title">O QUE DIZEM SOBRE MEU TRABALHO</h2>
+            <div class="underline"></div>
+            <div class="testimonial-card">
+                <p class="testimonial-quote" data-key="testimonial_quote">"O Brendon entregou um vídeo muito bem editado, com exatamente a vibe que eu queria pro meu canal. A edição ficou limpa, fluida e do jeitinho certo, mostrando cuidado em cada detalhe. Ele também respeitou o prazo certinho, o que me ajudou muito na organização."</p>
+                <div class="testimonial-author-info">
+                    <img src="https://i.pravatar.cc/80?u=a042581f4e29026704d" alt="Foto do cliente" class="author-avatar">
+                    <div class="author-details">
+                        <span class="testimonial-author">Juliana Silva</span>
+                        <span class="author-role" data-key="testimonial_role">YouTuber de Viagens</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="content-section">
+            <h2 class="section-title" data-key="faq_title">PERGUNTAS FREQUENTES</h2>
+            <div class="underline"></div>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span data-key="faq1_q">Como funciona o processo de pagamento?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p data-key="faq1_a">O pagamento é dividido em duas partes: 50% do valor total adiantado para iniciar o projeto e os 50% restantes na entrega final, após sua aprovação.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span data-key="faq2_q">Quantas revisões estão inclusas no projeto?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p data-key="faq2_a">Cada projeto inclui até duas rodadas de revisão completas. O objetivo é garantir que você fique 100% satisfeito com o resultado. Revisões adicionais podem ser negociadas à parte.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span data-key="faq3_q">Em qual formato os vídeos são entregues?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p data-key="faq3_a">Os vídeos são entregues no formato MP4 com a resolução e o codec otimizados para a plataforma de destino (YouTube, Instagram, etc. ), garantindo máxima qualidade e performance.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="content-section">
+            <h2 class="section-title" data-key="contact_title">CONTATO</h2>
+            <div class="underline"></div>
+            <p class="contact-text" data-key="contact_text">Gostou do meu trabalho? Vamos criar algo incrível juntos.</p>
+            <button id="open-contact-modal" class="cta-button">
+                <span class="icon-mail">&#9993;</span> <span data-key="contact_button">ENTRAR EM CONTATO</span>
+            </button>
+        </section>
+    </main>
+
+    <footer>
+        <p data-key="footer_text">&copy; 2025 Brendon Harrisson. Todos os direitos reservados.</p>
+    </footer>
+
+    <div id="contact-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button id="close-contact-modal" class="close-button">&times;</button>
+            <h3 data-key="form_title">Envie sua mensagem</h3>
+            <form id="contact-form" action="https://formspree.io/f/mldbkddv" method="POST">
+                <div class="form-group">
+                    <label for="name" data-key="form_name">Seu Nome</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email" data-key="form_email">Seu E-mail</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message" data-key="form_message">Mensagem</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="cta-button form-submit-button" data-key="form_submit">Enviar Mensagem</button>
+            </form>
+            <p id="form-status"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
