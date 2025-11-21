@@ -422,6 +422,36 @@ main {
     border-color: var(--primary-start);
 }
 
+/* NOVO: Estilo para o ícone de 'sem vídeo' */
+.gallery-item[data-video-id=""] {
+    background-color: var(--dark-concrete); /* Cor de fundo sutil */
+    position: relative;
+}
+
+.gallery-item[data-video-id=""]::before {
+    content: '🚫'; /* Ícone de proibido/sem vídeo */
+    font-size: 3rem;
+    color: var(--text-medium);
+    opacity: 0.5;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.gallery-item[data-video-id=""]:hover::before {
+    content: '🎬'; /* Ícone de filme/vídeo para sugestão de ação */
+    font-size: 3rem;
+    color: var(--primary-start);
+    opacity: 0.8;
+}
+
+.gallery-item:hover {
+    transform: scale(1.05);
+    border-color: var(--primary-start);
+}
+
 .play-icon {
     width: 50px;
     height: 50px;
