@@ -23,36 +23,21 @@ body {
     font-family: var(--font-main);
     background-color: var(--dark-bg);
     color: var(--text-light);
-    overflow-x: hidden;
-    cursor: none;
+    overflow-x: hidden; /* CORREÇÃO CRÍTICA: Impede o conteúdo de "vazar" */
 }
 
-/* --- CURSOR CUSTOMIZADO --- */
-.cursor {
-    width: 20px;
-    height: 20px;
-    border: 2px solid var(--primary-start);
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    transform: translate(-50%, -50%);
-    z-index: 9999;
-    transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease, opacity 0.2s ease;
-}
-
-/* --- BACKGROUNDS E EFEITOS DE UI --- */
-.background-particles {
+/* --- OTIMIZAÇÃO: CANVAS DO THREE.JS --- */
+#bg-canvas {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('https://www.transparenttextures.com/patterns/stardust.png' );
-    animation: particle-animation 60s linear infinite;
-    opacity: 0.2;
-    z-index: -4;
+    z-index: -2;
+    pointer-events: none;
 }
 
+/* --- BACKGROUNDS E EFEITOS DE UI --- */
 .background-texture {
     position: fixed;
     top: 0;
@@ -62,20 +47,6 @@ body {
     background-image: url('https://www.transparenttextures.com/patterns/concrete-wall-3.png' );
     background-color: var(--dark-concrete);
     opacity: 0.08;
-    z-index: -2;
-}
-
-.background-waves {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-        linear-gradient(45deg, rgba(0, 229, 255, 0.1) 0%, rgba(0, 229, 255, 0) 70%),
-        linear-gradient(-45deg, rgba(179, 0, 255, 0.1) 0%, rgba(179, 0, 255, 0) 70%);
-    background-size: 200% 200%;
-    animation: wave-animation 15s ease infinite;
     z-index: -3;
 }
 
@@ -88,6 +59,7 @@ body::after {
     height: 100%;
     background: radial-gradient(ellipse at center, rgba(0,0,0,0) 50%, rgba(0,0,0,0.8) 100%);
     z-index: -1;
+    pointer-events: none;
 }
 
 .scroll-line {
@@ -109,7 +81,7 @@ body::after {
     width: 100%;
     background: rgba(13, 17, 23, 0.8);
     backdrop-filter: blur(10px);
-    padding: 1rem 2rem;
+    padding: 1.5rem 2rem; /* Aumentado para 1.5rem para deixar a seção um pouco maior */
     z-index: 100;
     border-bottom: 1px solid rgba(0, 229, 255, 0.2);
     display: flex;
@@ -131,6 +103,7 @@ body::after {
     font-size: 1.2rem;
     letter-spacing: 1px;
     transition: color 0.3s, text-shadow 0.3s;
+    cursor: pointer;
 }
 
 .desktop-nav a:hover {
@@ -141,6 +114,8 @@ body::after {
 .lang-button {
     position: absolute;
     right: 2rem;
+    top: 50%; /* Alinhamento vertical */
+    transform: translateY(-50%); /* Alinhamento vertical */
     background: none;
     border: 1px solid var(--text-medium);
     color: var(--text-medium);
@@ -148,26 +123,22 @@ body::after {
     font-size: 1rem;
     padding: 0.3rem 0.6rem;
     border-radius: 4px;
-    cursor: none;
+    cursor: pointer;
     transition: color 0.3s, border-color 0.3s;
-}
-
-.lang-button:hover {
-    color: var(--primary-start);
-    border-color: var(--primary-start);
 }
 
 /* --- NAVEGAÇÃO MOBILE (HAMBÚRGUER) --- */
 .mobile-nav-toggle {
-    display: none; /* Escondido por padrão, aparece em telas pequenas */
-    position: absolute;
+    display: none;
+    position: absolute; /* MUDANÇA: de 'fixed' para 'absolute' para alinhar com a nav */
     right: 1.5rem;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 50%; /* CORREÇÃO CRÍTICA: Alinha o botão ao centro da nav */
+    transform: translateY(-50%); /* CORREÇÃO CRÍTICA: Centraliza perfeitamente */
     background: none;
     border: none;
     z-index: 102;
     cursor: pointer;
+    padding: 0.5rem;
 }
 
 .hamburger-line {
@@ -177,6 +148,13 @@ body::after {
     background-color: var(--text-light);
     margin: 5px 0;
     transition: transform 0.4s, opacity 0.4s;
+}
+
+.mobile-nav-toggle.open {
+    position: fixed; /* Quando aberto, volta a ser fixo para não rolar com a página */
+    right: 1.5rem;
+    top: 1.5rem; /* Posição fixa quando o menu está aberto */
+    transform: none;
 }
 
 .mobile-nav-toggle.open .hamburger-line:nth-child(1) {
@@ -238,6 +216,9 @@ main {
     padding: 0 1rem;
     max-width: 900px;
     margin: 0 auto;
+    position: relative; 
+    z-index: 1;
+    width: 100%; /* Garante que o main não vaze */
 }
 
 .hero-section {
@@ -288,6 +269,7 @@ main {
     letter-spacing: 4px;
     position: relative;
     animation: neon-flicker 4s infinite alternate;
+    word-break: break-word; /* Garante que o nome quebre se necessário */
 }
 
 .name::before,
@@ -328,7 +310,7 @@ main {
     color: var(--text-medium);
 }
 
-/* --- SEÇÃO DE SERVIÇOS (COM EFEITO FLIP) --- */
+/* --- SEÇÃO DE SERVIÇOS --- */
 .services-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -337,58 +319,25 @@ main {
     justify-content: center;
 }
 
-.service-card-container {
-    perspective: 1000px;
-    min-height: 350px;
-}
-
 .service-card {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    transform-style: preserve-3d;
-    transition: transform 0.8s cubic-bezier(0.75, 0, 0.25, 1);
-    border-radius: 8px;
-}
-
-.service-card-container:hover .service-card {
-    transform: rotateY(180deg);
-}
-
-.card-face {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.card-front {
     background: rgba(22, 27, 34, 0.7);
     border: 1px solid #30363d;
+    border-radius: 8px;
     padding: 2rem;
     text-align: left;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
 }
 
-.card-back {
-    background-color: #000;
-    transform: rotateY(180deg);
-    overflow: hidden;
-}
-
-.card-back video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.8;
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 0 15px rgba(0, 229, 255, 0.2);
 }
 
 .service-icon {
     font-size: 2.5rem;
     margin-bottom: 1rem;
+    color: var(--primary-start);
 }
 
 .service-card h4 {
@@ -461,11 +410,11 @@ main {
     border: 2px solid transparent;
     border-radius: 8px;
     transition: border-color 0.3s, transform 0.3s;
-    cursor: none;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .gallery-item:hover {
@@ -482,21 +431,11 @@ main {
     transition: opacity 0.3s, transform 0.3s;
 }
 
-.gallery-item:hover .play-icon {
-    opacity: 1;
-    transform: scale(1.1);
-}
-
 .gallery-item iframe {
     width: 100%;
     height: 100%;
     border: none;
 }
-
-.gallery-item iframe + .play-icon {
-    display: none;
-}
-
 
 /* --- SEÇÃO DEPOIMENTOS --- */
 .testimonial-card {
@@ -585,7 +524,7 @@ main {
     font-size: 1.3rem;
     color: var(--text-light);
     text-align: left;
-    cursor: none;
+    cursor: pointer;
 }
 
 .faq-icon {
@@ -633,7 +572,7 @@ main {
     font-size: 1.2rem;
     letter-spacing: 2px;
     transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
-    cursor: none;
+    cursor: pointer;
 }
 
 .cta-button:hover {
@@ -648,7 +587,7 @@ main {
     font-size: 1.3rem;
 }
 
-/* --- MODAL DE CONTATO --- */
+/* --- MODAL DE CONTATO E SERVIÇOS --- */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -684,6 +623,10 @@ main {
     transition: transform 0.4s;
 }
 
+.service-modal .modal-content {
+    max-width: 800px;
+}
+
 .modal-overlay.visible .modal-content {
     transform: scale(1);
 }
@@ -704,12 +647,8 @@ main {
     border: none;
     color: var(--text-medium);
     font-size: 2rem;
-    cursor: none;
+    cursor: pointer;
     transition: color 0.3s;
-}
-
-.close-button:hover {
-    color: var(--primary-start);
 }
 
 .form-group {
@@ -733,20 +672,7 @@ main {
     color: var(--text-light);
     font-family: var(--font-main);
     font-size: 1rem;
-    transition: border-color 0.3s, box-shadow 0.3s;
-    cursor: none;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: var(--primary-start);
-    box-shadow: 0 0 8px var(--primary-start);
-}
-
-.form-submit-button {
-    width: 100%;
-    margin-top: 1rem;
+    cursor: text;
 }
 
 #form-status {
@@ -754,6 +680,53 @@ main {
     margin-top: 1rem;
     min-height: 20px;
     font-family: var(--font-main);
+}
+
+/* --- ESTILOS DO CORPO DO MODAL DE SERVIÇO --- */
+.service-modal-body {
+    display: flex;
+    gap: 2rem;
+    text-align: left;
+}
+
+.service-modal-video {
+    flex: 1;
+    aspect-ratio: 16 / 9;
+    background-color: #000;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.service-modal-video video {
+    width: 100%;
+    height: 100%;
+    border: none;
+    object-fit: cover;
+}
+
+.service-modal-details {
+    flex: 1;
+}
+
+.service-modal-details p {
+    color: var(--text-medium);
+    margin-bottom: 1.5rem;
+}
+
+.service-modal-details h4 {
+    font-family: var(--font-title);
+    color: var(--text-light);
+    margin-bottom: 1rem;
+}
+
+.service-modal-details ul {
+    list-style: none;
+    margin-bottom: 2rem;
+}
+
+.service-modal-details li {
+    color: var(--text-medium);
+    margin-bottom: 0.5rem;
 }
 
 /* --- RODAPÉ --- */
@@ -781,17 +754,6 @@ footer {
     }
 }
 
-@keyframes wave-animation {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-@keyframes particle-animation {
-    from { transform: translateY(0); }
-    to { transform: translateY(-1000px); }
-}
-
 @keyframes glitch-1 {
     0%, 20%, 60%, 100% { clip-path: inset(50% 0 51% 0); }
     20.5% { clip-path: inset(10% 0 80% 0); }
@@ -811,49 +773,38 @@ footer {
 }
 
 /* =================================================================== */
-/* --- RESPONSIVIDADE --- */
+/* --- RESPONSIVIDADE PERFEITA (v3 - A LAPIDAÇÃO FINAL) --- */
 /* =================================================================== */
 
-/* --- TABLETS E CELULARES GRANDES (até 992px) --- */
+/* --- TABLETS E TELAS MENORES (até 992px) --- */
 @media (max-width: 992px) {
     .main-nav {
-        justify-content: flex-end; /* Alinha o conteúdo à direita */
+        justify-content: flex-end;
+        padding: 1.5rem 1.5rem; /* Aumentado para 1.5rem para deixar a seção um pouco maior no mobile */
     }
     .desktop-nav {
-        display: none; /* Esconde o menu de desktop */
+        display: none;
     }
     .mobile-nav-toggle {
-        display: block; /* Mostra o botão hambúrguer */
+        display: block;
     }
     .lang-button {
-        right: 4.5rem; /* Move o botão de idioma para a esquerda do hambúrguer */
+        right: 4.5rem;
     }
     .name {
         font-size: 4rem;
     }
 }
 
-/* --- CELULARES (até 768px) --- */
+/* --- CELULARES EM PAISAGEM E TABLETS PEQUENOS (até 768px) --- */
 @media (max-width: 768px) {
-    /* Desativa efeitos de hover e cursor customizado */
-    .cursor, .scroll-line {
+    #bg-canvas, .scroll-line {
         display: none;
     }
     body {
         cursor: auto;
     }
-    .cta-button, .close-button, .form-group input, .form-group textarea, .gallery-item, .faq-question, .lang-button, .mobile-nav-toggle {
-        cursor: auto;
-    }
-    .service-card-container:hover .service-card {
-        transform: none; /* Desativa o flip em mobile */
-    }
-    .gallery-item:hover {
-        transform: none; /* Desativa o zoom em mobile */
-        border-color: transparent;
-    }
-
-    /* Ajustes de Layout e Fonte */
+    
     main {
         padding: 0 1.5rem;
     }
@@ -861,20 +812,19 @@ footer {
         padding: 4rem 0;
     }
     .name {
-        font-size: 2.8rem; /* Tamanho do nome principal */
+        font-size: 3rem; /* Redução para caber melhor */
         letter-spacing: 2px;
     }
     .title {
-        font-size: 1.1rem; /* Tamanho do subtítulo */
+        font-size: 1.2rem;
     }
     .section-title {
-        font-size: 2rem; /* Tamanho dos títulos de seção */
+        font-size: 2.2rem;
     }
     .about-text, .contact-text {
-        font-size: 1.1rem; /* Tamanho do texto de parágrafo */
+        font-size: 1.1rem;
     }
-
-    /* Ajustes específicos de seções */
+    
     .process-flow {
         flex-direction: column;
         align-items: center;
@@ -884,31 +834,48 @@ footer {
         transform: rotate(90deg);
         margin: 0;
     }
+    
     .testimonial-card {
-        padding: 1.5rem;
+        padding: 2rem 1.5rem;
     }
     .testimonial-quote {
         font-size: 1.1rem;
     }
     .faq-question {
         font-size: 1.1rem;
+        padding: 1.2rem 0;
     }
     .faq-answer p {
         font-size: 1rem;
     }
+    
     .modal-content {
         padding: 2rem 1.5rem;
+        width: 95%;
+    }
+    .service-modal .modal-content {
+        max-width: 95%;
+        max-height: 85vh;
+        overflow-y: auto;
+    }
+    .service-modal-body {
+        flex-direction: column;
     }
 }
 
-/* --- CELULARES PEQUENOS (até 480px) --- */
+/* --- CELULARES EM RETRATO (até 480px) --- */
 @media (max-width: 480px) {
-    .name {
-        font-size: 2.2rem;
+    .main-nav {
+        padding: 1.5rem 1rem; /* Aumentado para 1.5rem para deixar a seção um pouco maior no mobile */
     }
     .lang-button {
-        padding: 0.2rem 0.5rem;
-        font-size: 0.9rem;
+        right: 4rem;
+    }
+    .mobile-nav-toggle {
+        right: 1rem;
+    }
+    .name {
+        font-size: 2.5rem;
     }
     .cta-button {
         font-size: 1rem;
@@ -916,6 +883,14 @@ footer {
     }
     .testimonial-author-info {
         flex-direction: column;
+        align-items: center;
         text-align: center;
+        gap: 1.5rem;
+    }
+    .modal-content h3 {
+        font-size: 1.5rem;
+    }
+    .service-modal-details ul {
+        padding-left: 1rem; /* Adiciona um pequeno recuo na lista */
     }
 }

@@ -1,9 +1,94 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    console.log("Portfólio v17 - Finalizado com vídeos de serviço e UX do menu mobile aprimorada.");
+    console.log("Portfólio v28 - Final: Tradução dos modais corrigida.");
 
     // ===================================================================
-    // LÓGICA DE TRADUÇÃO (i18n)
+    // THREE.JS - VERSÃO 2.1: ANIMAÇÃO SUTIL E CURSOR "COMETA" SEGUINDO O CURSOR PADRÃO
+    // ===================================================================
+    if (typeof THREE !== 'undefined') {
+        // 1. Configuração da Cena
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({
+            canvas: document.querySelector('#bg-canvas'),
+            alpha: true
+        });
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        camera.position.setZ(50);
+
+        // 2. Partículas Sutis
+        const particleCount = 3000;
+        const particlesGeometry = new THREE.BufferGeometry();
+        const posArray = new Float32Array(particleCount * 3);
+        for (let i = 0; i < particleCount * 3; i++) {
+            posArray[i] = (Math.random() - 0.5) * 100;
+        }
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.05,
+            color: 0x007799,
+            transparent: true,
+            opacity: 0.5,
+            blending: THREE.AdditiveBlending
+        });
+        const particleMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particleMesh);
+
+        // 3. Cursor "Cometa" Elegante
+        const trailLength = 15;
+        const trail = [];
+        for (let i = 0; i < trailLength; i++) {
+            const geometry = new THREE.SphereGeometry(i === 0 ? 0.5 : 0.2, 8, 8);
+            const material = new THREE.MeshBasicMaterial({ 
+                color: i === 0 ? 0x00e5ff : 0xb300ff,
+                transparent: true,
+                opacity: 1 - (i / trailLength)
+            });
+            const sphere = new THREE.Mesh(geometry, material);
+            trail.push(sphere);
+            scene.add(sphere);
+        }
+
+        // 4. Lógica do Mouse
+        const mousePosition = new THREE.Vector2();
+        document.addEventListener('mousemove', (event) => {
+            mousePosition.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mousePosition.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        });
+        
+        // 5. Loop de Animação
+        const clock = new THREE.Clock();
+        const animate = () => {
+            requestAnimationFrame(animate);
+            const elapsedTime = clock.getElapsedTime();
+            particleMesh.rotation.y = 0.02 * elapsedTime;
+
+            const vector = new THREE.Vector3(mousePosition.x, mousePosition.y, 0.5);
+            vector.unproject(camera);
+            const dir = vector.sub(camera.position).normalize();
+            const distance = -camera.position.z / dir.z;
+            const targetPosition = camera.position.clone().add(dir.multiplyScalar(distance));
+
+            trail[0].position.lerp(targetPosition, 0.4);
+            for (let i = 1; i < trailLength; i++) {
+                trail[i].position.lerp(trail[i - 1].position, 0.4);
+            }
+            
+            renderer.render(scene, camera);
+        };
+        animate();
+
+        // 6. Responsividade
+        window.addEventListener('resize', () => {
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+        });
+    }
+
+    // ===================================================================
+    // LÓGICA DE TRADUÇÃO (i18n) - COM MODAIS DE SERVIÇO
     // ===================================================================
     const translations = {
         en: {
@@ -49,6 +134,25 @@ document.addEventListener('DOMContentLoaded', () => {
             form_email: "Your Email",
             form_message: "Message",
             form_submit: "Send Message",
+            // Traduções dos Modais de Serviço
+            s_yt_title: "YouTube Videos",
+            s_yt_desc: "I transform your raw footage into dynamic videos that retain viewer attention, increase watch time, and strengthen your channel's identity.",
+            s_include_title: "What's included:",
+            s_yt_item1: "✓ Fluid cuts and assembly",
+            s_yt_item2: "✓ Audio treatment and mixing",
+            s_yt_item3: "✓ Professional color correction",
+            s_yt_item4: "✓ Motion graphics (texts, lower thirds)",
+            s_yt_item5: "✓ Inclusion of royalty-free soundtrack",
+            s_yt_item6: "✓ High-quality rendering (4K/1080p)",
+            s_cta_button: "I want a quote",
+            s_social_title: "Social Media Videos",
+            s_social_desc: "I create short and impactful videos, optimized for the vertical format of platforms like Reels, TikTok, and Shorts, focused on virality and quick engagement.",
+            s_social_item1: "✓ Dynamic vertical editing",
+            s_social_item2: "✓ Stylized and easy-to-read subtitles",
+            s_social_item3: "✓ Use of trending music and audio",
+            s_social_item4: "✓ Creative visual effects and transitions",
+            s_social_item5: "✓ Call-to-actions (CTAs) for conversion",
+            s_social_item6: "✓ Optimized export for each platform",
         },
         pt: {
             nav_home: "Início",
@@ -93,6 +197,25 @@ document.addEventListener('DOMContentLoaded', () => {
             form_email: "Seu E-mail",
             form_message: "Mensagem",
             form_submit: "Enviar Mensagem",
+            // Traduções dos Modais de Serviço
+            s_yt_title: "Vídeos para YouTube",
+            s_yt_desc: "Transformo suas gravações brutas em vídeos dinâmicos que retêm a atenção do espectador, aumentam o tempo de exibição e fortalecem a identidade do seu canal.",
+            s_include_title: "O que está incluso:",
+            s_yt_item1: "✓ Cortes e montagem fluida",
+            s_yt_item2: "✓ Tratamento e mixagem de áudio",
+            s_yt_item3: "✓ Correção de cor profissional",
+            s_yt_item4: "✓ Motion graphics (textos, lower thirds)",
+            s_yt_item5: "✓ Inclusão de trilha sonora (livre de royalties)",
+            s_yt_item6: "✓ Renderização em alta qualidade (4K/1080p)",
+            s_cta_button: "Quero um orçamento",
+            s_social_title: "Vídeos para Redes Sociais",
+            s_social_desc: "Crio vídeos curtos e impactantes, otimizados para o formato vertical de plataformas como Reels, TikTok e Shorts, focados em viralização e engajamento rápido.",
+            s_social_item1: "✓ Edição vertical dinâmica",
+            s_social_item2: "✓ Legendas estilizadas e de fácil leitura",
+            s_social_item3: "✓ Uso de músicas e áudios em alta",
+            s_social_item4: "✓ Efeitos visuais e transições criativas",
+            s_social_item5: "✓ Call-to-actions (CTAs) para conversão",
+            s_social_item6: "✓ Exportação otimizada para cada plataforma",
         }
     };
 
@@ -130,39 +253,11 @@ document.addEventListener('DOMContentLoaded', () => {
         mobileNavMenu.classList.toggle('open');
     });
 
-    // Fecha o menu mobile ao clicar em um link
     const mobileNavLinks = document.querySelectorAll('.mobile-nav-menu a');
     mobileNavLinks.forEach(link => {
         link.addEventListener('click', () => {
             mobileNavToggle.classList.remove('open');
             mobileNavMenu.classList.remove('open');
-        });
-    });
-
-
-    // ===================================================================
-    // CURSOR CUSTOMIZADO INTERATIVO
-    // ===================================================================
-    const cursor = document.querySelector('.cursor');
-    const interactiveElements = document.querySelectorAll('a, button, .gallery-item, input, textarea, .service-card-container, .faq-question');
-
-    document.addEventListener('mousemove', e => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-    });
-
-    interactiveElements.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            cursor.style.width = '40px';
-            cursor.style.height = '40px';
-            cursor.style.backgroundColor = 'var(--primary-start)';
-            cursor.style.opacity = '0.5';
-        });
-        el.addEventListener('mouseleave', () => {
-            cursor.style.width = '20px';
-            cursor.style.height = '20px';
-            cursor.style.backgroundColor = 'transparent';
-            cursor.style.opacity = '1';
         });
     });
 
@@ -202,7 +297,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ===================================================================
-    // LÓGICA FINAL PARA A GALERIA DE VÍDEOS (PLAYER NATIVO)
+    // LÓGICA DA GALERIA DE VÍDEOS (PLAYER NATIVO)
     // ===================================================================
     const galleryItems = document.querySelectorAll('.gallery-item');
 
@@ -242,30 +337,64 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ===================================================================
-    // LÓGICA DO MODAL DE CONTATO
+    // LÓGICA GERAL DOS MODAIS (CONTATO E SERVIÇOS)
     // ===================================================================
     const contactModal = document.getElementById('contact-modal');
-    const openModalBtn = document.getElementById('open-contact-modal');
-    const closeModalBtn = document.getElementById('close-contact-modal');
+    const openContactModalBtn = document.getElementById('open-contact-modal');
 
-    openModalBtn.addEventListener('click', () => {
+    // Abrir modal de contato
+    openContactModalBtn.addEventListener('click', () => {
         contactModal.classList.add('visible');
     });
 
-    closeModalBtn.addEventListener('click', () => {
-        contactModal.classList.remove('visible');
+    // Lógica para os modais de serviço
+    const serviceCards = document.querySelectorAll('.service-card');
+    serviceCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const serviceId = card.getAttribute('data-service-id');
+            const targetModal = document.getElementById(`service-modal-${serviceId}`);
+            if (targetModal) {
+                targetModal.classList.add('visible');
+            }
+        });
     });
 
-    contactModal.addEventListener('click', (event) => {
-        if (event.target === contactModal) {
-            contactModal.classList.remove('visible');
+    // Lógica para fechar QUALQUER modal
+    const allModals = document.querySelectorAll('.modal-overlay');
+    allModals.forEach(modal => {
+        const closeBtn = modal.querySelector('.close-button');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                modal.classList.remove('visible');
+            });
         }
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.classList.remove('visible');
+            }
+        });
     });
-
+    
     document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape' && contactModal.classList.contains('visible')) {
-            contactModal.classList.remove('visible');
+        if (event.key === 'Escape') {
+            allModals.forEach(modal => {
+                if (modal.classList.contains('visible')) {
+                    modal.classList.remove('visible');
+                }
+            });
         }
+    });
+
+    // Lógica para o botão "Quero um orçamento" dentro do modal de serviço
+    const openContactFromServiceBtns = document.querySelectorAll('.open-contact-from-service');
+    openContactFromServiceBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const currentServiceModal = btn.closest('.service-modal');
+            if (currentServiceModal) {
+                currentServiceModal.classList.remove('visible');
+            }
+            contactModal.classList.add('visible');
+        });
     });
 
     // ===================================================================
@@ -292,7 +421,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 status.style.color = "var(--primary-start)";
                 form.reset();
                 setTimeout(() => {
-                    contactModal.classList.remove('visible');
+                    const visibleModal = document.querySelector('.modal-overlay.visible');
+                    if(visibleModal) visibleModal.classList.remove('visible');
                     status.innerHTML = "";
                 }, 2000);
             } else {

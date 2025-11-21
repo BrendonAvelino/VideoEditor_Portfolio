@@ -6,23 +6,23 @@
     <title>Brendon Harrisson - Portfólio</title>
     
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎬</text></svg>">
-    <link rel="stylesheet" href="style.css">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&family=Rajdhani:wght@700&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&family=Rajdhani:wght@700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&family=Rajdhani:wght@700&display=swap"></noscript>
+    
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="background-particles"></div>
+    <canvas id="bg-canvas"></canvas>
     <div class="background-texture"></div>
-    <div class="background-waves"></div>
 
-    <div class="cursor"></div>
     <div class="scroll-line left-line"></div>
     <div class="scroll-line right-line"></div>
 
     <nav class="main-nav">
-        <!-- Menu para Desktop -->
         <ul class="desktop-nav">
             <li><a href="#home" data-key="nav_home">Início</a></li>
             <li><a href="#about" data-key="nav_about">Sobre</a></li>
@@ -34,7 +34,6 @@
         </ul>
         <button id="lang-toggle" class="lang-button">EN</button>
         
-        <!-- Botão do Menu Hambúrguer (só aparece em mobile ) -->
         <button class="mobile-nav-toggle" aria-label="Abrir menu">
             <span class="hamburger-line"></span>
             <span class="hamburger-line"></span>
@@ -42,7 +41,6 @@
         </button>
     </nav>
 
-    <!-- Menu para Mobile (escondido por padrão) -->
     <div class="mobile-nav-menu">
         <ul>
             <li><a href="#home" data-key="nav_home">Início</a></li>
@@ -76,29 +74,15 @@
             <h2 class="section-title" data-key="services_title">SERVIÇOS</h2>
             <div class="underline"></div>
             <div class="services-grid">
-                <div class="service-card-container">
-                    <div class="service-card">
-                        <div class="card-face card-front">
-                            <div class="service-icon">🎬</div>
-                            <h4 data-key="service1_title">Vídeos para YouTube</h4>
-                            <p data-key="service1_desc">Edição completa para canais, incluindo cortes, trilha sonora, legendas e correção de cor para engajar sua audiência.</p>
-                        </div>
-                        <div class="card-face card-back">
-                            <video src="https://assets.mixkit.co/videos/5381/5381-720.mp4" autoplay loop muted playsinline></video>
-                        </div>
-                    </div>
+                <div class="service-card" data-service-id="youtube">
+                    <div class="service-icon">🎬</div>
+                    <h4 data-key="service1_title">Vídeos para YouTube</h4>
+                    <p data-key="service1_desc">Edição completa para canais, incluindo cortes, trilha sonora, legendas e correção de cor para engajar sua audiência.</p>
                 </div>
-                <div class="service-card-container">
-                    <div class="service-card">
-                        <div class="card-face card-front">
-                            <div class="service-icon">📱</div>
-                            <h4 data-key="service2_title">Vídeos para Redes Sociais</h4>
-                            <p data-key="service2_desc">Edição de vídeos curtos e dinâmicos para Reels, TikTok e Stories, otimizados para o consumo rápido e viral.</p>
-                        </div>
-                        <div class="card-face card-back">
-                            <video src="https://assets.mixkit.co/videos/42286/42286-720.mp4" autoplay loop muted playsinline></video>
-                        </div>
-                    </div>
+                <div class="service-card" data-service-id="social">
+                    <div class="service-icon">📱</div>
+                    <h4 data-key="service2_title">Vídeos para Redes Sociais</h4>
+                    <p data-key="service2_desc">Edição de vídeos curtos e dinâmicos para Reels, TikTok e Stories, otimizados para o consumo rápido e viral.</p>
                 </div>
             </div>
         </section>
@@ -131,9 +115,8 @@
             <h2 class="section-title" data-key="gallery_title">GALERIA</h2>
             <div class="underline"></div>
             <div class="gallery-grid">
-                <!-- Itens com vídeo (troque o ID ) -->
-                <div class="gallery-item" data-video-id="MToMx6RCW-M"><div class="play-icon"></div></div>
-                <div class="gallery-item" data-video-id=""><div class="play-icon"></div></div>
+                <div class="gallery-item" data-video-id="MToMx6RCW-M"></div>
+                <div class="gallery-item" data-video-id="3Z1_Hmc221o"></div>
                 <div class="gallery-item" data-video-id=""><div class="play-icon"></div></div>
                 <div class="gallery-item" data-video-id=""><div class="play-icon"></div></div>
                 <div class="gallery-item" data-video-id=""><div class="play-icon"></div></div>
@@ -147,7 +130,7 @@
             <div class="testimonial-card">
                 <p class="testimonial-quote" data-key="testimonial_quote">"O Brendon entregou um vídeo muito bem editado, com exatamente a vibe que eu queria pro meu canal. A edição ficou limpa, fluida e do jeitinho certo, mostrando cuidado em cada detalhe. Ele também respeitou o prazo certinho, o que me ajudou muito na organização."</p>
                 <div class="testimonial-author-info">
-                    <img src="https://i.pravatar.cc/80?u=a042581f4e29026704d" alt="Foto do cliente" class="author-avatar">
+                    <img src="https://i.pravatar.cc/80?u=a042581f4e29026704d" alt="Foto do cliente" class="author-avatar" loading="lazy">
                     <div class="author-details">
                         <span class="testimonial-author">Juliana Silva</span>
                         <span class="author-role" data-key="testimonial_role">YouTuber de Viagens</span>
@@ -204,9 +187,10 @@
         <p data-key="footer_text">&copy; 2025 Brendon Harrisson. Todos os direitos reservados.</p>
     </footer>
 
+    <!-- MODAL DE CONTATO -->
     <div id="contact-modal" class="modal-overlay">
         <div class="modal-content">
-            <button id="close-contact-modal" class="close-button">&times;</button>
+            <button class="close-button">&times;</button>
             <h3 data-key="form_title">Envie sua mensagem</h3>
             <form id="contact-form" action="https://formspree.io/f/mldbkddv" method="POST">
                 <div class="form-group">
@@ -227,6 +211,60 @@
         </div>
     </div>
 
+    <!-- MODAL PARA SERVIÇO YOUTUBE -->
+    <div id="service-modal-youtube" class="modal-overlay service-modal">
+        <div class="modal-content">
+            <button class="close-button">&times;</button>
+            <h3 data-key="s_yt_title">Vídeos para YouTube</h3>
+            <div class="service-modal-body">
+                <div class="service-modal-video">
+                    <video src="https://assets.mixkit.co/videos/5381/5381-720.mp4" autoplay loop muted playsinline></video>
+                </div>
+                <div class="service-modal-details">
+                    <p data-key="s_yt_desc">Transformo suas gravações brutas em vídeos dinâmicos que retêm a atenção do espectador, aumentam o tempo de exibição e fortalecem a identidade do seu canal.</p>
+                    <h4 data-key="s_include_title">O que está incluso:</h4>
+                    <ul>
+                        <li data-key="s_yt_item1">✓ Cortes e montagem fluida</li>
+                        <li data-key="s_yt_item2">✓ Tratamento e mixagem de áudio</li>
+                        <li data-key="s_yt_item3">✓ Correção de cor profissional</li>
+                        <li data-key="s_yt_item4">✓ Motion graphics (textos, lower thirds )</li>
+                        <li data-key="s_yt_item5">✓ Inclusão de trilha sonora (livre de royalties)</li>
+                        <li data-key="s_yt_item6">✓ Renderização em alta qualidade (4K/1080p)</li>
+                    </ul>
+                    <button class="cta-button open-contact-from-service" data-key="s_cta_button">Quero um orçamento</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PARA SERVIÇO REDES SOCIAIS -->
+    <div id="service-modal-social" class="modal-overlay service-modal">
+        <div class="modal-content">
+            <button class="close-button">&times;</button>
+            <h3 data-key="s_social_title">Vídeos para Redes Sociais</h3>
+            <div class="service-modal-body">
+                <div class="service-modal-video">
+                    <video src="https://assets.mixkit.co/videos/42286/42286-720.mp4" autoplay loop muted playsinline></video>
+                </div>
+                <div class="service-modal-details">
+                    <p data-key="s_social_desc">Crio vídeos curtos e impactantes, otimizados para o formato vertical de plataformas como Reels, TikTok e Shorts, focados em viralização e engajamento rápido.</p>
+                    <h4 data-key="s_include_title">O que está incluso:</h4>
+                    <ul>
+                        <li data-key="s_social_item1">✓ Edição vertical dinâmica</li>
+                        <li data-key="s_social_item2">✓ Legendas estilizadas e de fácil leitura</li>
+                        <li data-key="s_social_item3">✓ Uso de músicas e áudios em alta</li>
+                        <li data-key="s_social_item4">✓ Efeitos visuais e transições criativas</li>
+                        <li data-key="s_social_item5">✓ Call-to-actions (CTAs ) para conversão</li>
+                        <li data-key="s_social_item6">✓ Exportação otimizada para cada plataforma</li>
+                    </ul>
+                    <button class="cta-button open-contact-from-service" data-key="s_cta_button">Quero um orçamento</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
