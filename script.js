@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    console.log("Portfólio v15 - Galeria com player nativo do YouTube.");
+    console.log("Portfólio v17 - Finalizado com vídeos de serviço e UX do menu mobile aprimorada.");
 
     // ===================================================================
     // LÓGICA DE TRADUÇÃO (i18n)
@@ -120,6 +120,27 @@ document.addEventListener('DOMContentLoaded', () => {
     setLanguage(currentLang);
 
     // ===================================================================
+    // LÓGICA DO MENU MOBILE (HAMBÚRGUER)
+    // ===================================================================
+    const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+    const mobileNavMenu = document.querySelector('.mobile-nav-menu');
+
+    mobileNavToggle.addEventListener('click', () => {
+        mobileNavToggle.classList.toggle('open');
+        mobileNavMenu.classList.toggle('open');
+    });
+
+    // Fecha o menu mobile ao clicar em um link
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-menu a');
+    mobileNavLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileNavToggle.classList.remove('open');
+            mobileNavMenu.classList.remove('open');
+        });
+    });
+
+
+    // ===================================================================
     // CURSOR CUSTOMIZADO INTERATIVO
     // ===================================================================
     const cursor = document.querySelector('.cursor');
@@ -188,23 +209,19 @@ document.addEventListener('DOMContentLoaded', () => {
     galleryItems.forEach(item => {
         const videoId = item.getAttribute('data-video-id');
         
-        // Se o item tiver um ID de vídeo, carrega o iframe do YouTube
         if (videoId) {
             const iframe = document.createElement('iframe');
-            // URL sem autoplay, para mostrar a thumbnail e o botão de play do YouTube
             iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?rel=0&controls=1` );
             iframe.setAttribute('frameborder', '0');
             iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
             iframe.setAttribute('allowfullscreen', '');
             
-            // Remove o ícone de play placeholder e adiciona o iframe
             const playIcon = item.querySelector('.play-icon');
             if (playIcon) {
                 item.removeChild(playIcon);
             }
             item.appendChild(iframe);
         }
-        // Se não tiver videoId, o item continua como está (caixa cinza com o ícone de play)
     });
 
     // ===================================================================

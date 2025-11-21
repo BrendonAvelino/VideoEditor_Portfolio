@@ -22,7 +22,8 @@
     <div class="scroll-line right-line"></div>
 
     <nav class="main-nav">
-        <ul>
+        <!-- Menu para Desktop -->
+        <ul class="desktop-nav">
             <li><a href="#home" data-key="nav_home">Início</a></li>
             <li><a href="#about" data-key="nav_about">Sobre</a></li>
             <li><a href="#services" data-key="nav_services">Serviços</a></li>
@@ -32,7 +33,28 @@
             <li><a href="#contact" data-key="nav_contact">Contato</a></li>
         </ul>
         <button id="lang-toggle" class="lang-button">EN</button>
+        
+        <!-- Botão do Menu Hambúrguer (só aparece em mobile ) -->
+        <button class="mobile-nav-toggle" aria-label="Abrir menu">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
     </nav>
+
+    <!-- Menu para Mobile (escondido por padrão) -->
+    <div class="mobile-nav-menu">
+        <ul>
+            <li><a href="#home" data-key="nav_home">Início</a></li>
+            <li><a href="#about" data-key="nav_about">Sobre</a></li>
+            <li><a href="#services" data-key="nav_services">Serviços</a></li>
+            <li><a href="#gallery" data-key="nav_gallery">Galeria</a></li>
+            <li><a href="#testimonials" data-key="nav_testimonials">Depoimentos</a></li>
+            <li><a href="#faq" data-key="nav_faq">FAQ</a></li>
+            <li><a href="#contact" data-key="nav_contact">Contato</a></li>
+        </ul>
+    </div>
+
 
     <main>
         <section id="home" class="hero-section">
@@ -111,7 +133,9 @@
             <div class="gallery-grid">
                 <!-- Itens com vídeo (troque o ID ) -->
                 <div class="gallery-item" data-video-id="MToMx6RCW-M"><div class="play-icon"></div></div>
-                <div class="gallery-item" data-video-id=""><div class="play-icon"></div></div>
+                <div class="gallery-item" data-video-id="3Z1_Hmc221o"><div class="play-icon"></div></div>
+                
+                <!-- Itens sem vídeo (deixe o data-video-id vazio ou remova-o) -->
                 <div class="gallery-item" data-video-id=""><div class="play-icon"></div></div>
                 <div class="gallery-item" data-video-id=""><div class="play-icon"></div></div>
                 <div class="gallery-item" data-video-id=""><div class="play-icon"></div></div>
