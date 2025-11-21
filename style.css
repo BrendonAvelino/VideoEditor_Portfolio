@@ -235,8 +235,8 @@ main {
     padding: 6rem 0;
     text-align: center;
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    transform: translateY(50px); /* Aumenta o deslocamento inicial para um efeito mais impactante */
+    transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Usa uma curva de aceleração mais dramática (ease-in-out) */
 }
 
 .content-section.visible {
