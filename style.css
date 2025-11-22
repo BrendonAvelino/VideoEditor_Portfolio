@@ -726,7 +726,6 @@ main {
     flex: 1;
     min-width: 400px;
     max-width: 550px;
-    height: 29rem; /* Força o vídeo a ocupar a altura total do flex container */
     aspect-ratio: 16 / 9;
     background-color: #000;
     border-radius: 4px;
