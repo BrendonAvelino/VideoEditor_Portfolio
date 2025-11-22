@@ -730,6 +730,9 @@ main {
     background-color: #000;
     border-radius: 4px;
     overflow: hidden;
+    /* Correção de responsividade para mobile */
+    width: 100%;
+    min-width: unset; /* Remove o min-width fixo que causa o problema no mobile */
 }
 
 .service-modal-video video {
@@ -842,6 +845,14 @@ footer {
     }
 
     .service-modal-video, .service-modal-details {
+        max-width: 100%;
+    }
+}
+
+/* Correção de responsividade para o vídeo em telas menores */
+@media (max-width: 768px) {
+    .service-modal-video {
+        min-width: 100%; /* Garante que o vídeo ocupe a largura total no mobile */
         max-width: 100%;
     }
 }
